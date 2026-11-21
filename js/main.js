@@ -400,13 +400,60 @@
         return;
       }
 
-      // No backend is connected in this version, so nothing is sent.
-      if (status) {
-        status.className = "form-status";
-        status.textContent =
-          "Preview only: this form does not send messages and no backend is connected. " +
-          "Your message was not sent. Please contact the Principal's office using the details on this page.";
+      var consent = form.elements.consent;
+      if (consent && !consent.checked) {
+        var consentError = document.getElementById("consent-error");
+        if (consentError) consentError.textContent = "Please read the privacy notice and tick the box to send your enquiry.";
+        consent.focus();
+        if (status) { status.className = "form-status is-error"; status.textContent = "Please tick the consent box to send your enquiry."; }
+        return;
       }
+      var consentOk = document.getElementById("consent-error");
+      if (consentOk) consentOk.textContent = "";
+
+      var cfg = window.MGGS_CMS_CONFIG || {};
+      var button = document.getElementById("enquiry-submit");
+      if (!cfg.enquiryEndpoint) {
+        // Endpoint not switched on yet: nothing is sent.
+        if (status) {
+          status.className = "form-status is-error";
+          status.textContent = "The online enquiry form is not active yet. Please contact the school office using the details on this page.";
+        }
+        return;
+      }
+
+      var payload = {
+        action: "enquiry",
+        name: values.name,
+        contact: values.contact,
+        subject: form.elements.subject ? form.elements.subject.value : "",
+        message: values.message,
+        website: form.elements.website ? form.elements.website.value : ""
+      };
+      if (button) { button.disabled = true; button.textContent = "Sending..."; }
+      if (status) { status.className = "form-status"; status.textContent = "Sending your enquiry..."; }
+
+      fetch(cfg.enquiryEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res && res.ok) {
+            if (status) { status.className = "form-status is-ok"; status.textContent = "Thank you. Your enquiry was received. Reference: " + res.reference + "."; }
+            form.reset();
+          } else if (status) {
+            status.className = "form-status is-error";
+            status.textContent = (res && res.error) || "Your enquiry could not be sent. Please try again or call the school office.";
+          }
+        })
+        .catch(function () {
+          if (status) { status.className = "form-status is-error"; status.textContent = "Your enquiry could not be sent. Please check your connection and try again, or call the school office."; }
+        })
+        .then(function () {
+          if (button) { button.disabled = false; button.textContent = "Send enquiry"; }
+        });
     });
   }
 

@@ -68,7 +68,7 @@
           <div class="glass" style="padding:8px 22px">
             <div class="contact-item">
               <div class="icon" aria-hidden="true">A</div>
-              <div><strong>Address</strong>Ward No. 03, Nagar Palika Anta, District Baran, Rajasthan – 325202</div>
+              <div><strong>Address</strong>Mahatma Gandhi Government School<br>Ward No. 3, Bamori, Kota Road<br>Anta, District Baran, Rajasthan – 325202</div>
             </div>
             <div class="contact-item">
               <div class="icon" aria-hidden="true">P</div>
@@ -102,8 +102,12 @@
 
         <div class="reveal" data-delay="1">
           <h2 id="form-title" style="font-size:1.5rem;margin-bottom:12px">Send an enquiry</h2>
-          <p class="notice-meta"><strong>Preview only.</strong> This form does not send messages and no backend is connected. Nothing you type is sent or stored. Enquiries are handled by the Principal's office (TARUN KUMAR SHARMA, Principal and Equivalent).</p>
+          <p class="notice-meta">Your enquiry is sent to the school office. Enquiries are handled by the Principal's office (TARUN KUMAR SHARMA, Principal and Equivalent). Please read the privacy notice below before sending.</p>
           <form class="contact-form" id="contact-form" novalidate aria-labelledby="form-title">
+            <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+              <label for="website">Leave this field empty</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
             <label for="name">Your name
               <input class="field" type="text" id="name" name="name" autocomplete="name" required aria-describedby="name-error">
               <span class="field-error" id="name-error"></span>
@@ -112,14 +116,27 @@
               <input class="field" type="text" id="contact" name="contact" autocomplete="tel" required aria-describedby="contact-error">
               <span class="field-error" id="contact-error"></span>
             </label>
+            <label for="subject">Subject (optional)
+              <input class="field" type="text" id="subject" name="subject" maxlength="120" aria-describedby="subject-error">
+              <span class="field-error" id="subject-error"></span>
+            </label>
             <label for="message">Message
               <textarea class="field" id="message" name="message" required aria-describedby="message-error"></textarea>
               <span class="field-error" id="message-error"></span>
             </label>
-            <button class="btn" type="submit">Send enquiry</button>
+            <div class="consent-row">
+              <label class="consent-label" for="consent">
+                <input type="checkbox" id="consent" name="consent" required aria-describedby="consent-error">
+                I have read the privacy notice and agree that the school office may use my name, contact and message to reply to this enquiry.
+              </label>
+              <span class="field-error" id="consent-error"></span>
+            </div>
+            <button class="btn" type="submit" id="enquiry-submit">Send enquiry</button>
             <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
           </form>
-          <p class="notice-meta" style="margin-top:14px">Preview form: validation only. A live enquiry form needs an approved service and a privacy notice before use <span class="placeholder">[CONFIRM]</span>.</p>
+          <div class="privacy-note notice-meta" style="margin-top:14px">
+            <p><strong>Privacy notice (draft, pending school approval).</strong> The school office receives the name, phone or email and message you send. They are stored in a restricted school record and used only to reply to your enquiry. Retention period and how to request deletion: <span class="placeholder">[PENDING SCHOOL APPROVAL]</span>.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -127,7 +144,7 @@
     <section class="section" style="padding-top:0" aria-labelledby="location-title">
       <div class="container prose reveal">
         <h2 id="location-title">Location</h2>
-        <p>Ward No. 03, Nagar Palika Anta, District Baran, Rajasthan – 325202. The map above shows the school's main gate, from the school's confirmed Google Maps link.</p>
+        <p>Mahatma Gandhi Government School, Ward No. 3, Bamori, Kota Road, Anta, District Baran, Rajasthan – 325202. The map above shows the school's main gate, from the school's confirmed Google Maps link.</p>
         <p>On Google Maps this school may appear as "Mahatma Gandhi Govt. School Bamori". It is the same school: MAHATMA GANDHI GOVT. SCHOOL ANTA (498902).</p>
       </div>
     </section>
@@ -138,7 +155,7 @@
       <div class="footer-grid">
         <div>
           <p><strong>MAHATMA GANDHI GOVT. SCHOOL ANTA</strong></p>
-          <p>Address: Ward No. 03, Nagar Palika Anta, District Baran, Rajasthan – 325202</p>
+          <p>Address: Mahatma Gandhi Government School<br>Ward No. 3, Bamori, Kota Road<br>Anta, District Baran, Rajasthan – 325202</p>
           <p>Phone: <a href="tel:+918079028673">8079028673</a> (School Office)</p>
           <p>Email: <a href="mailto:Antamggs@gmail.com">Antamggs@gmail.com</a></p>
         </div>
@@ -176,6 +193,7 @@
     </div>
   </footer>
 
+  <script src="js/cms-config.js"></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>
